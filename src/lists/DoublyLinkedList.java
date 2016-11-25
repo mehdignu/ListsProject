@@ -16,13 +16,43 @@ public class DoublyLinkedList<T> implements Listable<T> {
 	
 	@Override
 	public void add(T data) {
-		// TODO Auto-generated method stub
+		Node newNode = new Node();
+		newNode.data = data;
+		newNode.next = null;
+		newNode.prev = null;
+
+		if (head == null) {
+			head = newNode;
+			tail = null;
+		} else {
+			Node temp = head;
+			while (temp.next != null) {
+				temp = temp.next;
+			}
+			temp.next = newNode;
+			temp.prev = temp;
+		}
 		
 	}
 
 	@Override
 	public void delete(int index) {
-		// TODO Auto-generated method stub
+		Node n = head;
+		int p=2;
+		if(index==1){
+		head = n.next;
+		n.prev = null;
+		}else{
+			
+		while(p != index){
+			n = n.next;
+			p++;
+		}
+		n.next = n.next.next;
+		n.prev.prev = n.next;
+	
+		}
+		
 		
 	}
 
@@ -30,46 +60,101 @@ public class DoublyLinkedList<T> implements Listable<T> {
 
 	@Override
 	public T get(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		int p=1;
+		Node n = head;
+		if(index == 1){
+			return n.data;
+		}else{
+			
+		
+		while(n.next != null && p != index){
+			n = n.next; p++;
+		}
+		}
+		return n.data;
 	}
+	
 
 	
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		head=null;
 		
 	}
 
 	@Override
 	public int getSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		int p=0;
+		Node t = head;
+		while(t != null){
+			t = t.next;
+			p++;
+		}
+		return p;
 	}
 
 	@Override
 	public void printAll() {
-		System.out.println(this.getClass().getSimpleName());
-		// TODO Auto-generated method stub
+		Node n = head;
+		while(n != null){
+			System.out.println(n.data);
+			n = n.next;
+		}
 		
 	}
 
 	@Override
 	public void addFirst(T data) {
-		// TODO Auto-generated method stub
+		Node n = new Node();
+		n.data = data;
+		n.next=head;
+		n.prev = null;
+		head=n;
+		head.prev = n;
 		
 	}
 
 	@Override
 	public void addLast(T data) {
-		// TODO Auto-generated method stub
+		Node t = head;
+		Node n = new Node();
+		if(t == null){
+			n.data = data;
+			n.next=null;
+			n.prev = null;
+			head=n;
+		}else{
+		
+		while(t.next != null){
+			t = t.next;
+		}
+		n.data=data;
+		n.next=null;
+		n.prev = t;
+		t.next=n;
+		}
 		
 	}
 
 	@Override
 	public void search(String f, String l, int s, String p) {
-		// TODO Auto-generated method stub
+		Node n = head;
+		boolean b= false;
+		while(n != null){
+			String ff = ((Student) n.data).getFname();
+			String ll = ((Student) n.data).getLname();
+			int ss = ((Student) n.data).getSn();
+			String pp = ((Student) n.data).getProg();
+			if(ff==f && ll==l && ss==s && pp==p ){
+				System.out.println(n.data);
+				b= true;
+			}
+			n = n.next;
+		}
+		if(b==false){
+			System.out.println("Student not found !");
+		}
 		
 	}
 

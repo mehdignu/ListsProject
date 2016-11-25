@@ -44,22 +44,35 @@ public class SinglyLinkedList<T> implements Listable<T> {
 	@Override
 	public void addLast(T data) {
 		Node t = head;
+		Node n = new Node();
+		if(t == null){
+			n.data = data;
+			n.next=null;
+			head=n;
+		}else{
+		
 		while(t.next != null){
 			t = t.next;
 		}
-		Node n = new Node();
+		
 		n.data=data;
 		n.next=null;
 		t.next=n;
-		
+		}
 	}
 
 	@Override
 	public T get(int index) {
-		int p=0;
+		int p=1;
 		Node n = head;
+		if(index == 1){
+			return n.data;
+		}else{
+			
+		
 		while(n.next != null && p != index){
 			n = n.next; p++;
+		}
 		}
 		return n.data;
 	}
@@ -79,7 +92,7 @@ public class SinglyLinkedList<T> implements Listable<T> {
 	public int getSize() {
 		int p=0;
 		Node t = head;
-		while(t.next != null){
+		while(t != null){
 			t = t.next;
 			p++;
 		}
@@ -89,12 +102,18 @@ public class SinglyLinkedList<T> implements Listable<T> {
 	@Override
 	public void delete(int index) {
 		Node n = head;
-		int p=0;
-		while(p != index-1){
+		int p=2;
+		if(index==1){
+		head = n.next;	
+		}else{
+			
+		while(p != index){
 			n = n.next;
 			p++;
 		}
 		n.next = n.next.next;
+	
+		}
 	}
 
 	@Override
